@@ -1,0 +1,123 @@
+/*
+    1 - #B4B6C7
+    2 - #676C9B
+    3 - #323875
+    4 - #0F1550
+    5 - #02062A
+*/
+:root{
+    --container-height: 75vh;
+    --container-width: var(--container-height);
+}
+
+.root{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    height: 100vh;
+    padding: 16px;
+    width: 100vw;
+}
+div#options{
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
+    flex-direction: column;
+    margin: 128px;
+    width: 256px;
+}
+
+div#options > button{
+    background: #676C9B;
+    border: none;
+    border-radius: 6px;
+    color: #edeef4;
+    font-size: 18px;
+    font-family: monospace;
+    margin-bottom: 32px;
+    padding: 16px;
+    transition-duration: .3s;
+    width: 100%;
+}
+div#options > div > span{
+    font-size: 18px;
+    font-family: monospace;
+}
+
+div#options > button:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+    transition-duration: .3s;
+}
+
+div.range-slider-container{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+
+.grid{
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+    display:flex;
+    flex-direction: column;
+    height: var(--container-height);
+    width: var(--container-width);
+}
+
+.grid > div {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    margin: 0;
+    width: 100%;
+}
+
+.grid > div > div{
+    align-items: center;
+    justify-content: center;
+    background: #B4B6C7;
+    height: calc(var(--container-height)/16);
+    /* transition-duration: .3s;
+    transition-timing-function: ease-in-out; */
+    width: calc(var(--container-width)/16);
+}
+/* .grid > div > div:hover{
+    background-color: #323875;
+    transition-duration: .3s;
+    transition-timing-function: ease-in-out;
+} */
+
+
+
+
+
+
+
+
+
+
+/*
+    BOILERPLATE
+*/
+* { 
+	box-sizing: border-box;
+}
+html, body {
+	min-height: 100%;
+	background: #edeef4;
+	color: #02062A;
+}
+	/* sets the body height of the browser, so that backgrounds and div heights work correctly. Color and background will almost certainly be altered; they are just placeholders */
+	
+body {
+	font-size: 1.4rem;
+	text-rendering: optimizeLegibility;
+}
+	/* sets the base font size for the document; turns on kerning pairs and ligatures */
+	
+body, ul, ol, dl {
+	margin: 0;
+}
