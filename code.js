@@ -1,12 +1,8 @@
+let root = document.querySelector(".root");
 let currentSize = 16,
     currentColor = "#323875",
     opacityValues = [],
     currentMode = "color";
-
-let slider = document.querySelector('.range-slider'),
-    sliderValue = document.querySelector('.range-slider-value').value,
-    sliderValueOutput = document.querySelector('.range-slider-value');
-    slider.oninput = function () {sliderValueOutput.textContent = this.value;};
 
 function hoverColor(item, color){
     item.addEventListener("mouseenter", () => {
@@ -23,8 +19,8 @@ function hoverParty(item){
 
 function hoverOpacity(item, indexNum){
     opacityValues.push(0);
-    item.classList.add(`item-${indexNum}`);
     item.style.opacity = 0;
+
     item.addEventListener("mouseenter", () => {
         let thisIndex = parseFloat(item.className.slice(5)) - 1;
         let updatedOpacity = opacityValues[thisIndex] + 1;
@@ -35,57 +31,93 @@ function hoverOpacity(item, indexNum){
         item.style.opacity = updatedOpacity / 10;
       }, false);
 }
-
-function generateDiv(columnPos, rowNum, size) {
-    let item = document.createElement("div");
-    let indexNum = (((rowNum - 1) * size) + columnPos);
-    // Cases
-    switch(currentMode){
-        case 'color':
-            hoverColor(item, currentColor);
-            break;
-        case 'party':
-            hoverParty(item);
-            break;
-        case 'opacity':
-            hoverOpacity(item, indexNum);
-        default:
-            hoverColor(item, currentColor);
-    } 
-    return item
-}
-
-function generateRow(size, rowNum){
-    let row = document.createElement("div");
-        for( let columnPos = 1; columnPos <= size; columnPos++){
-                row.appendChild(generateDiv(columnPos, rowNum, size));
-        }
-    return row
+function clearGrid(){
+    let currentGrid = document.querySelector(".grid");
+    currentGrid.remove()
 }
 
 function generateGrid(size){
-    let currentGrid = document.querySelector(".grid"),
-        grid = document.createElement("div");
+    let grid = document.createElement("div");
         grid.classList.add("grid");
 
-    if(!!currentGrid){
-        currentGrid.remove()
-    }
-
+    // generate pixel containers - 'rows'
     for(let rowNum = 1; rowNum <= size; rowNum++){
-            grid.appendChild(generateRow(size, rowNum));
+        let row = document.createElement("div");
+            row.classList.add(`row-${rowNum}`)
+
+        // generate pixels
+        for( let columnPos = 1; columnPos <= size; columnPos++){
+            let item = document.createElement("div");
+                item.style.width = `calc(60vh /${size})`;
+                item.style.height = `calc(60vh /${size})`;
+            let indexNum = (((rowNum - 1) * size) + columnPos);
+                item.classList.add(`item-${indexNum}`);
+            switch(currentMode){
+                case 'color':
+                    hoverColor(item, currentColor);
+                    break;
+                case 'party':
+                    hoverParty(item);
+                    break;
+                case 'opacity':
+                    hoverOpacity(item, indexNum);
+                default:
+                    hoverColor(item, currentColor);
+            } 
+                row.appendChild(item);
+        }
+            grid.appendChild(row);
     }
-    return grid
+    root.appendChild(grid)
 }
 
+// User Inputs
 
-
-let button = document.querySelector("#generate-grid");
-    button.addEventListener("click", () =>{
+// User can see changes but they don't happen until commitment of the value
+let slider = document.querySelector('.range-slider'),
+    sliderValueOutput = document.querySelector('.range-slider-value');
+    slider.oninput = function () {sliderValueOutput.textContent = this.value;};
+    slider.addEventListener('change', (event) => {
         clearGrid();
+        generateGrid(parseInt(slider.value));
+        console.log(parseInt(slider.value))
     });
 
 
-// Initializing the grid
-let root = document.querySelector(".root");
-    root.appendChild(generateGrid(16, 16));
+
+let resetButton = document.querySelector("#generate-grid");
+    resetButton.addEventListener("click", () =>{
+        clearGrid();
+        generateGrid(parseInt(slider.value));
+    });
+
+let colorButton = document.querySelector("#color-mode");
+    colorButton.addEventListener("click", () =>{
+        if(currentMode != "color"){
+            clearGrid();
+            currentMode = "color";
+            generateGrid(parseInt(slider.value));
+        }
+    });
+
+let partyButton = document.querySelector("#party-mode");
+    partyButton.addEventListener("click", () =>{
+        if(currentMode != "party"){
+            clearGrid();
+            currentMode = "party";
+            generateGrid(parseInt(slider.value));
+        }
+    });
+
+let opacityButton = document.querySelector("#opacity-mode");
+    opacityButton.addEventListener("click", () =>{
+        if(currentMode != "opacity"){
+            clearGrid();
+            currentMode = "opacity";
+            generateGrid(parseInt(slider.value));
+        }
+    });
+
+
+// Initialize
+generateGrid(21)

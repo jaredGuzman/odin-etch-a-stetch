@@ -6,15 +6,35 @@
     5 - #02062A
 */
 :root{
-    --container-height: 75vh;
-    --container-width: var(--container-height);
+    --container-height: 60vh;
+}
+
+#background-element{
+    height: 100vh;
+    left: 5%;
+    top: 10%;
+    transform: rotate(-45deg);
+    position: fixed;
+    z-index: 0;
+}
+
+.credits{
+    float:right;
+    font-size: 14px;
+    font-family: monospace;
+    color:#B4B6C7;
+    padding: 16px 48px;
+    text-align: right;
+}
+.credits > a{
+    color: inherit;
 }
 
 .root{
     align-items: center;
     justify-content: center;
     display: flex;
-    height: 100vh;
+    height:calc(100% - 48px);
     padding: 16px;
     width: 100vw;
 }
@@ -25,6 +45,7 @@ div#options{
     flex-direction: column;
     margin: 128px;
     width: 256px;
+    z-index: 1;
 }
 
 div#options > button{
@@ -38,6 +59,7 @@ div#options > button{
     padding: 16px;
     transition-duration: .3s;
     width: 100%;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 div#options > div > span{
     font-size: 18px;
@@ -63,8 +85,8 @@ div.range-slider-container{
     box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
     display:flex;
     flex-direction: column;
-    height: var(--container-height);
-    width: var(--container-width);
+    height: calc(var(--container-height) - 2px);
+    z-index: 1;
 }
 
 .grid > div {
@@ -73,30 +95,14 @@ div.range-slider-container{
     display: flex;
     margin: 0;
     width: 100%;
+    height:100%;
 }
 
 .grid > div > div{
     align-items: center;
     justify-content: center;
     background: #B4B6C7;
-    height: calc(var(--container-height)/16);
-    /* transition-duration: .3s;
-    transition-timing-function: ease-in-out; */
-    width: calc(var(--container-width)/16);
 }
-/* .grid > div > div:hover{
-    background-color: #323875;
-    transition-duration: .3s;
-    transition-timing-function: ease-in-out;
-} */
-
-
-
-
-
-
-
-
 
 
 /*
@@ -113,6 +119,7 @@ html, body {
 	/* sets the body height of the browser, so that backgrounds and div heights work correctly. Color and background will almost certainly be altered; they are just placeholders */
 	
 body {
+    height: 100vh;
 	font-size: 1.4rem;
 	text-rendering: optimizeLegibility;
 }
